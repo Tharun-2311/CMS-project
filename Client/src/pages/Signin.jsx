@@ -6,7 +6,7 @@ export default function Signin() {
             className="flex items-center justify-center min-h-screen px-4 bg-cover bg-center"
             style={{
                 backgroundImage:
-                    "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1500&q=80')",
+                    "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80')",
             }}
         >
             <div className="bg-white/90 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
