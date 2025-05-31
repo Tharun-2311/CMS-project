@@ -2,7 +2,8 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import Menu from './pages/Menu'
+import Order from './pages/Order'
+
 
 
 
@@ -11,7 +12,7 @@ function App() {
 
   return (
     <>
-   <Menu/>
+  <Order/>
     </>
 
   )
