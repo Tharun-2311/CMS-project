@@ -53,7 +53,7 @@ return (
                     onClick={handleSignIn}
                     className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-5 py-2 rounded-lg font-bold shadow-md transition-all duration-200"
                 >
-                    Sign In
+                    SignIn
                 </button>
             </nav>
         </header>

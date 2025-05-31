@@ -76,7 +76,7 @@ const Menu = () => {
                     className="mt-auto bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-4 py-2 rounded-lg shadow font-semibold transition-all duration-200"
                     onClick={() => addToCart(item)}
                   >
-                    Add to Order
+                    Add to Order🧺
                   </button>
                 </div>
               </div>
