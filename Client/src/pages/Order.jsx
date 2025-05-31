@@ -43,13 +43,15 @@ const Order = () => {
       }}
     >
       <div className="max-w-md w-full bg-white p-8 rounded-3xl shadow-2xl transition duration-500 ease-in-out transform hover:scale-105">
-        <h2 className="text-4xl font-bold text-center text-blue-700 mb-6 animate-fade-in">
+        <h2 className="text-4xl font-bold text-center text-blue-700 mb-6">
           🍽️ Place Your Order
         </h2>
 
         {submitted ? (
-          <div className="text-center space-y-4 animate-slide-in">
-            <h3 className="text-2xl font-bold text-green-600">🎉 Thank you for your order!</h3>
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-bold text-green-600">
+              🎉 Thank you for your order!
+            </h3>
             <ul className="text-left text-gray-800 space-y-1">
               <li><strong>Name:</strong> {order.name}</li>
               <li><strong>Phone:</strong> {order.phone}</li>
@@ -59,7 +61,7 @@ const Order = () => {
             </ul>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-5 animate-fade-in">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <Input
               label="Your Name"
               name="name"

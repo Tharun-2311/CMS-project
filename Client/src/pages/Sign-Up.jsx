@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -7,6 +8,8 @@ export default function Signup() {
   const [age, setAge] = useState('');
   const [address, setAddress] = useState('');
   const [error, setError] = useState('');
+
+  const navigate = useNavigate();
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -17,11 +20,16 @@ export default function Signup() {
     }
 
     setError('');
+    // Simulate account creation success
+    // Replace this with your actual signup logic
     console.log('Email:', email);
     console.log('Password:', password);
     console.log('Mobile:', mobile);
     console.log('Age:', age);
     console.log('Address:', address);
+
+    // On successful account creation, navigate to home
+    navigate('/');
   }
 
   return (
@@ -34,7 +42,7 @@ export default function Signup() {
     >
       <div className="bg-white/90 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md">
         <h2 className="text-3xl font-extrabold text-center text-rose-700 mb-6">
-          Sign Up for Spice Garden
+          SIGN UP
         </h2>
 
         {error && (
@@ -107,7 +115,8 @@ export default function Signup() {
             type="submit"
             className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg transition duration-200"
           >
-            Register
+            CREATE ACCOUNT
+            
           </button>
         </form>
       </div>

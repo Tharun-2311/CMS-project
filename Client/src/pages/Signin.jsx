@@ -1,6 +1,17 @@
 import React from 'react';
 
 export default function Signin() {
+    const navigate = React.useCallback(
+        () => window.location.assign('/'),
+        []
+    );
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        // Simulate successful sign in
+        navigate();
+    }
+
     return (
         <div
             className="flex items-center justify-center min-h-screen px-4 bg-cover bg-center"
@@ -14,7 +25,7 @@ export default function Signin() {
                     Sign In to Your Account
                 </h2>
 
-                <form className="space-y-5">
+                <form className="space-y-5" onSubmit={handleSubmit}>
                     {/* Email Field */}
                     <div>
                         <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
@@ -55,7 +66,7 @@ export default function Signin() {
                 {/* Footer Links */}
                 <div className="text-center text-sm text-gray-600">
                     Don't have an account?{' '}
-                    <a href="/signup" className="text-red-500 hover:underline font-medium">
+                    <a href="/sign-up" className="text-red-500 hover:underline font-medium">
                         Sign up
                     </a>
                 </div>
