@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const menuItems = [
   { id: 1, name: "Margherita Pizza", price: 100, image: "https://media.istockphoto.com/id/468515806/photo/pizza.jpg?s=612x612&w=0&k=20&c=X2K8aiRYh23fcmmOCLGAK4ZFOIpj0cdLe2yv0AoZSIw=" },
@@ -17,6 +17,10 @@ const menuItems = [
 const Menu = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const searchTerm = queryParams.get("search")?.toLowerCase() || "";
 
   const addToCart = (item) => {
     setCart((prev) => [...prev, item]);
@@ -30,59 +34,92 @@ const Menu = () => {
     navigate("/Order", { state: { cart } });
   };
 
+  // Filter menu items based on search term
+  const filteredItems = menuItems.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm)
+  );
+
   return (
-    <div className="p-8 max-w-5xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6 text-center">🍴 Restaurant Menu</h1>
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-orange-100 to-pink-100 py-10">
+      <div className="max-w-6xl mx-auto px-4">
+        <h1 className="text-4xl font-extrabold text-center text-orange-700 drop-shadow mb-2 tracking-tight">
+          🍴 Welcome to Our Menu
+        </h1>
+        <p className="text-center text-lg text-gray-600 mb-8">
+          Discover delicious dishes and add your favorites to your order!
+        </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
-        {menuItems.map((item) => (
-          <div key={item.id} className="bg-white rounded-xl shadow overflow-hidden">
-            <img src={item.image} alt={item.name} className="w-full h-40 object-cover" />
-            <div className="p-4 flex flex-col justify-between h-40">
-              <h3 className="text-lg font-semibold">{item.name}</h3>
-              <p className="text-gray-700 font-medium">₹{item.price}</p>
-              <button
-                className="mt-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-md text-sm"
-                onClick={() => addToCart(item)}
+        {searchTerm && (
+          <p className="text-center text-gray-700 mb-4">
+            Showing results for: <span className="font-semibold text-orange-600">"{searchTerm}"</span>
+          </p>
+        )}
+
+        {filteredItems.length === 0 ? (
+          <p className="text-center text-red-500 mb-8 text-lg font-medium">No menu items found.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 mb-12">
+            {filteredItems.map((item) => (
+              <div
+                key={item.id}
+                className="bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-shadow duration-300 overflow-hidden flex flex-col"
               >
-                Add to Order
-              </button>
-            </div>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-48 object-cover object-center"
+                />
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-xl font-bold text-orange-700 mb-1">{item.name}</h3>
+                  <p className="text-gray-700 font-medium mb-3">₹{item.price}</p>
+                  <button
+                    className="mt-auto bg-gradient-to-r from-orange-400 to-pink-500 hover:from-orange-500 hover:to-pink-600 text-white px-4 py-2 rounded-lg shadow font-semibold transition-all duration-200"
+                    onClick={() => addToCart(item)}
+                  >
+                    Add to Order
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        )}
+
+        <div className="bg-white/80 rounded-2xl shadow-lg p-8 max-w-xl mx-auto mt-8">
+          <h2 className="text-2xl font-bold text-orange-700 mb-4 flex items-center gap-2">
+            <span role="img" aria-label="cart">🛒</span> Your Order
+          </h2>
+
+          {cart.length === 0 ? (
+            <p className="text-gray-500 mb-4">No items in order.</p>
+          ) : (
+            <ul className="mb-4 space-y-2">
+              {cart.map((item, idx) => (
+                <li key={idx} className="flex justify-between items-center text-lg">
+                  <span>{item.name}</span>
+                  <span className="font-semibold text-orange-600">₹{item.price}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="flex justify-between items-center text-xl font-semibold mb-4 border-t pt-4">
+            <span>Total:</span>
+            <span className="text-orange-700">₹{getTotal()}</span>
+          </div>
+
+          <button
+            onClick={goToOrder}
+            disabled={cart.length === 0}
+            className={`w-full py-3 rounded-lg text-lg font-bold shadow transition-all duration-200 ${
+              cart.length === 0
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white"
+            }`}
+          >
+            Buy Now
+          </button>
+        </div>
       </div>
-
-      <h2 className="text-2xl font-semibold mb-4">🛒 Your Order</h2>
-
-      {cart.length === 0 ? (
-        <p className="text-gray-500 mb-4">No items in order.</p>
-      ) : (
-        <ul className="mb-4 space-y-2">
-          {cart.map((item, idx) => (
-            <li key={idx} className="flex justify-between">
-              <span>{item.name}</span>
-              <span>₹{item.price}</span>
-            </li>
-          ))}
-        </ul>
-      )}
-
-      <div className="flex justify-between items-center text-xl font-semibold mb-4">
-        <span>Total:</span>
-        <span>₹{getTotal()}</span>
-      </div>
-
-      <button
-        onClick={goToOrder}
-        disabled={cart.length === 0}
-        className={`w-full py-3 text-white rounded-md text-lg font-medium ${
-          cart.length === 0
-            ? "bg-gray-400 cursor-not-allowed"
-            : "bg-blue-600 hover:bg-blue-700"
-        }`}
-      >
-        Buy Now
-      </button>
     </div>
   );
 };

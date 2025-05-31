@@ -1,81 +1,104 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Home() {
-    const handleSignIn = () => {
-        window.location.href = '/signin';
-    };
+  const [search, setSearch] = useState('');
+  const navigate = useNavigate();
 
-    return (
-        <div
-            className="flex flex-col min-h-screen bg-gradient-to-br from-green-100 via-blue-100 to-purple-200"
-            style={{
-                backgroundImage:
-                    "linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1500&q=80')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-            }}
-        >
-            {/* Top-right nav */}
-            <nav className="absolute top-6 right-10 flex space-x-8 z-10">
-                <Link
-                    to="/"
-                    className="px-8 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full font-semibold shadow hover:scale-110 hover:from-green-500 hover:to-green-700 transition-all duration-200 flex items-center justify-center"
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+
+  const handleSearch = () => {
+    if (!isLoggedIn) {
+      alert('Please sign in to search the menu.');
+      navigate('/signin');
+      return;
+    }
+
+    if (search.trim()) {
+      navigate(`/Menu?search=${encodeURIComponent(search.trim())}`);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSearch();
+  };
+
+  const handleSignIn = () => {
+    navigate('/signin');
+  };
+
+return (
+    <div
+        className="flex flex-col min-h-screen"
+        style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1500&q=80')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+        }}
+    >
+        <header className="flex justify-between items-center px-10 py-6 bg-gradient-to-r from-orange-200 via-orange-100 to-red-200 bg-opacity-95 shadow-lg backdrop-blur-md">
+            <div className="text-3xl font-extrabold text-red-700 tracking-tight drop-shadow-lg">
+                <span role="img" aria-label="food">🍽️</span> Foodie's Paradise
+            </div>
+            <nav className="flex space-x-6">
+                <Link to="/" className="text-red-800 hover:text-orange-600 font-semibold transition-colors duration-200"></Link>
+                <Link to="/Sign-Up" className="text-red-800 hover:text-orange-600 font-semibold transition-colors duration-200"></Link>
+                <button
+                    onClick={() => navigate('/')}
+                    className="bg-gradient-to-r from-orange-400 to-red-500 hover:from-orange-500 hover:to-red-600 text-white px-5 py-2 rounded-lg font-bold shadow-md transition-all duration-200"
                 >
                     Home
-                </Link>
+                </button>
                 <button
                     onClick={handleSignIn}
-                    className="px-8 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-full font-semibold shadow hover:scale-110 hover:from-purple-600 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center"
+                    className="bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white px-5 py-2 rounded-lg font-bold shadow-md transition-all duration-200"
                 >
                     Sign In
                 </button>
-                <Link
-                    to="/Sign-Up"
-                    className="px-8 py-2 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-full font-semibold shadow hover:scale-110 hover:from-green-500 hover:to-green-700 transition-all duration-200 flex items-center justify-center"
-                >
-                    Sign Up
-                </Link>
-                <Link
-                    to="/Menu"
-                    className="px-8 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-full font-semibold shadow hover:scale-110 hover:from-blue-600 hover:to-indigo-700 transition-all duration-200 flex items-center justify-center"
-                >
-                    Go to Menu
-                </Link>
             </nav>
-            <div className="flex flex-col items-center justify-center flex-1 min-h-screen">
-                <div className="bg-white bg-opacity-95 p-12 rounded-3xl shadow-2xl flex flex-col items-center max-w-2xl w-full mt-20 border-4 border-blue-200">
-                    <div className="flex flex-col items-center mb-6">
-                        <img
-                            src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png"
-                            alt="Food Icon"
-                            className="w-24 h-24 mb-2 drop-shadow-lg animate-bounce"
-                        />
-                        <h1 className="text-5xl font-extrabold mb-2 text-purple-700 drop-shadow text-center tracking-wide">
-                            Foodie's Paradise
-                        </h1>
-                        <span className="text-gray-500 text-base italic">Taste the joy of every bite!</span>
-                    </div>
-                    <p className="italic mt-2 text-gray-700 text-lg text-center">
-                        "Good food is the foundation of genuine happiness."
-                    </p>
-                    <p className="italic text-gray-700 text-lg text-center mb-6">
-                        "Eat well, live well, be well."
-                    </p>
-                    <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mb-8 shadow-inner">
-                        <h2 className="text-2xl font-bold text-blue-800 mb-2 text-center">About Our Restaurant</h2>
-                        <p className="text-gray-700 text-center text-base">
-                            Welcome to <span className="font-semibold text-purple-700">Foodie's Paradise</span>, where culinary dreams come true! 
-                            Our restaurant blends fresh, locally sourced ingredients with creative recipes to bring you a menu full of delightful surprises. 
-                            Whether you're craving classic comfort food or adventurous new flavors, our chefs are dedicated to making every meal memorable. 
-                            Enjoy a cozy atmosphere, friendly service, and a passion for great food—right here in the heart of the city!
-                        </p>
-                    </div>
-                    <ul className="list-none mt-6 p-0 flex gap-12 text-lg justify-center">
-                    </ul>
-                </div>
-            </div>
-        </div>
-    );
-}
+        </header>
 
+        <main className="flex-1 flex items-center justify-center px-4">
+            <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-12 max-w-2xl w-full text-center border border-orange-200">
+                <h1 className="text-5xl font-extrabold text-red-700 mb-5 drop-shadow-md">
+                    Welcome to <span className="text-orange-600">Foodie's Paradise</span>
+                </h1>
+           <p className="text-gray-700 mb-8 text-xl font-medium">
+  Welcome to Foodie’s Paradise — your home for delicious Indian flavors.  
+  From spicy North Indian curries to the crispy dosas and idlis of the South,  
+  we bring you authentic dishes made with fresh ingredients and traditional recipes.  
+  Whether you crave rich biryanis, tangy chutneys, or sweet desserts,  
+  there’s something here for everyone to enjoy.  
+  Come taste the true essence of India’s diverse cuisine, all in one place.
+</p>
+
+
+                <div className="flex mt-6 justify-center">
+                    <input
+                        type="text"
+                        placeholder="Search dishes like Biryani, Pizza..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={handleKeyDown}
+                        className="w-full max-w-md px-5 py-3 border border-orange-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-orange-400 text-lg shadow-sm transition-all duration-200"
+                    />
+                    <button
+                        onClick={handleSearch}
+                        className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-7 py-3 rounded-r-xl font-semibold hover:from-red-600 hover:to-orange-600 shadow-md transition-all duration-200"
+                    >
+                        Search
+                    </button>
+                </div>
+
+                <blockquote className="italic text-red-700 mt-8 text-lg font-semibold border-l-4 border-orange-400 pl-4">
+                    "Good food is the foundation of genuine happiness."
+                </blockquote>
+            </div>
+        </main>
+
+        <footer className="py-5 text-center text-base text-gray-600 bg-gradient-to-r from-orange-200 via-orange-100 to-red-200 bg-opacity-90 mt-auto shadow-inner">
+            &copy; {new Date().getFullYear()} <span className="font-semibold text-red-700">Foodie's Paradise</span>. All rights reserved.
+        </footer>
+    </div>
+);
+}

@@ -1,77 +1,65 @@
 import React from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Signin() {
-    const navigate = React.useCallback(
-        () => window.location.assign('/'),
-        []
-    );
+  const navigate = useNavigate();
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        // Simulate successful sign in
-        navigate();
-    }
+  function handleSubmit(e) {
+    e.preventDefault();
+    // Simulate successful sign in
+    localStorage.setItem('loggedIn', 'true');
+    navigate('/Menu');
+  }
 
-    return (
-        <div
-            className="flex items-center justify-center min-h-screen px-4 bg-cover bg-center"
-            style={{
-                backgroundImage:
-                    "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1500&q=80')",
-            }}
-        >
-            <div className="bg-white/90 backdrop-blur-md p-8 md:p-10 rounded-2xl shadow-2xl w-full max-w-md space-y-6">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-center text-red-600 drop-shadow">
-                    Sign In to Your Account
-                </h2>
+  return (
+    <div
+      className="flex items-center justify-center min-h-screen px-4"
+      style={{
+        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.92)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1500&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-10 max-w-md w-full border border-orange-200">
+        <h2 className="text-4xl font-extrabold text-red-700 mb-6 text-center drop-shadow-md">
+          Sign In to Your Account
+        </h2>
+        <form onSubmit={handleSubmit} className="space-y-6 text-red-900">
+          <div>
+            <label className="block mb-2 font-semibold text-orange-700">Email Address</label>
+            <input
+              type="email"
+              required
+              placeholder="you@example.com"
+              className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              autoComplete="email"
+            />
+          </div>
+          <div>
+            <label className="block mb-2 font-semibold text-orange-700">Password</label>
+            <input
+              type="password"
+              required
+              placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              autoComplete="current-password"
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full py-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold rounded-lg shadow-md transition duration-200 text-lg tracking-wide"
+          >
+            Sign In
+          </button>
+        </form>
 
-                <form className="space-y-5" onSubmit={handleSubmit}>
-                    {/* Email Field */}
-                    <div>
-                        <label htmlFor="email" className="block text-gray-700 font-semibold mb-1">
-                            Email Address
-                        </label>
-                        <input
-                            type="email"
-                            id="email"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 bg-white/80"
-                            placeholder="example@mail.com"
-                            required
-                        />
-                    </div>
-
-                    {/* Password Field */}
-                    <div>
-                        <label htmlFor="password" className="block text-gray-700 font-semibold mb-1">
-                            Password
-                        </label>
-                        <input
-                            type="password"
-                            id="password"
-                            className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-400 bg-white/80"
-                            placeholder="Enter your password"
-                            required
-                        />
-                    </div>
-
-                    {/* Submit Button */}
-                    <button
-                        type="submit"
-                        className="w-full py-2.5 bg-red-500 hover:bg-red-600 text-white text-lg font-semibold rounded-lg transition duration-300 shadow"
-                    >
-                        Sign In
-                    </button>
-                </form>
-
-                {/* Footer Links */}
-                <div className="text-center text-sm text-gray-600">
-                    Don't have an account?{' '}
-                    <a href="/sign-up" className="text-red-500 hover:underline font-medium">
-                        Sign up
-                    </a>
-                </div>
-            </div>
+        <div className="mt-6 text-center text-orange-600 text-sm">
+          Don't have an account?{' '}
+          <Link to="/Sign-Up" className="text-red-600 hover:underline font-semibold">
+            Sign up
+          </Link>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
-

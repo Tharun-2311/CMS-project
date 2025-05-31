@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -20,105 +20,111 @@ export default function Signup() {
     }
 
     setError('');
-    // Simulate account creation success
-    // Replace this with your actual signup logic
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Mobile:', mobile);
-    console.log('Age:', age);
-    console.log('Address:', address);
-
-    // On successful account creation, navigate to home
-    navigate('/');
+    // Normally here you'd do signup logic (API call etc)
+    localStorage.setItem('loggedIn', 'true');
+    navigate('/Menu');
   }
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex items-center justify-center px-4 py-10"
+      className="flex items-center justify-center min-h-screen px-4"
       style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80')",
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)), url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1500&q=80')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}
     >
-      <div className="bg-white/90 backdrop-blur-xl p-8 md:p-10 rounded-3xl shadow-2xl w-full max-w-md">
-        <h2 className="text-3xl font-extrabold text-center text-rose-700 mb-6">
-          SIGN UP
+      <div className="bg-white bg-opacity-95 rounded-3xl shadow-2xl p-10 max-w-lg w-full border border-orange-200">
+        <h2 className="text-4xl font-extrabold text-red-700 mb-6 text-center drop-shadow-md">
+          Create Your Account
         </h2>
 
         {error && (
-          <div className="text-red-600 text-sm text-center mb-4">{error}</div>
+          <div className="text-red-600 text-center mb-4 font-semibold">{error}</div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-5 text-gray-800">
+        <form onSubmit={handleSubmit} className="space-y-6 text-red-900">
           <div>
-            <label className="block mb-1 font-medium">Email</label>
+            <label className="block mb-2 font-semibold text-orange-700">Email</label>
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-400 bg-gray-100"
               placeholder="you@example.com"
+              className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              autoComplete="email"
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Password</label>
+            <label className="block mb-2 font-semibold text-orange-700">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-400 bg-gray-100"
               placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              autoComplete="new-password"
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Mobile Number</label>
+            <label className="block mb-2 font-semibold text-orange-700">Mobile Number</label>
             <input
               type="tel"
               value={mobile}
               onChange={(e) => setMobile(e.target.value)}
               required
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-400 bg-gray-100"
               placeholder="+91 9876543210"
+              className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              autoComplete="tel"
             />
           </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Age</label>
-            <input
-              type="number"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              required
-              min="1"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-400 bg-gray-100"
-              placeholder="Enter your age"
-            />
-          </div>
+          <div className="flex gap-4">
+            <div className="flex-1">
+              <label className="block mb-2 font-semibold text-orange-700">Age</label>
+              <input
+                type="number"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+                required
+                min="1"
+                placeholder="Age"
+                className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+              />
+            </div>
 
-          <div>
-            <label className="block mb-1 font-medium">Address</label>
-            <textarea
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-              rows="3"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-rose-400 bg-gray-100"
-              placeholder="Enter your address"
-            />
+            <div className="flex-1">
+              <label className="block mb-2 font-semibold text-orange-700">Address</label>
+              <input
+                type="text"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+                placeholder="Address"
+                className="w-full px-4 py-3 rounded-lg border border-orange-300 focus:ring-2 focus:ring-orange-400 bg-orange-50 transition shadow-sm text-lg"
+                autoComplete="street-address"
+              />
+            </div>
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-lg transition duration-200"
+            className="w-full py-3 bg-gradient-to-r from-red-500 to-orange-500 hover:from-red-600 hover:to-orange-600 text-white font-bold rounded-lg shadow-md transition duration-200 text-lg tracking-wide"
           >
-            CREATE ACCOUNT
-            
+            Create Account
           </button>
         </form>
+
+        <div className="mt-6 text-center text-orange-600 text-sm">
+          Already have an account?{' '}
+          <Link to="/Signin" className="text-red-600 hover:underline font-semibold">
+            Log in
+          </Link>
+        </div>
       </div>
     </div>
   );
