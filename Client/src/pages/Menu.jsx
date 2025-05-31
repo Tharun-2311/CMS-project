@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 
 const menuItems = [
-  { id: 1, name: "Margherita Pizza", price: 100, image: "https://source.unsplash.com/200x150/?pizza" },
-  { id: 2, name: "Veggie Burger", price: 80, image: "https://source.unsplash.com/200x150/?burger" },
-  { id: 3, name: "Caesar Salad", price: 70, image: "https://source.unsplash.com/200x150/?salad" },
-  { id: 4, name: "Pasta Alfredo", price: 120, image: "https://source.unsplash.com/200x150/?pasta" },
-  { id: 5, name: "Grilled Sandwich", price: 60, image: "https://source.unsplash.com/200x150/?sandwich" },
-  { id: 6, name: "Masala Dosa", price: 20, image: "https://source.unsplash.com/200x150/?dosa" },
-  { id: 7, name: "Idli Sambar", price: 50, image: "https://source.unsplash.com/200x150/?idli" },
-  { id: 8, name: "Medu Vada", price: 10, image: "https://source.unsplash.com/200x150/?vada" },
-  { id: 9, name: "Pongal", price: 40, image: "https://source.unsplash.com/200x150/?pongal" },
-  { id: 10, name: "Uttapam", price: 30, image: "https://source.unsplash.com/200x150/?uttapam" },
+  { id: 1, name: "Margherita Pizza", price: 100, image: "https://media.istockphoto.com/id/468515806/photo/pizza.jpg?s=612x612&w=0&k=20&c=X2K8aiRYh23fcmmOCLGAK4ZFOIpj0cdLe2yv0AoZSIw=" },
+  { id: 2, name: "Veggie Burger", price: 80, image: "https://media.istockphoto.com/id/507636912/photo/cheeseburger-and-fries-on-restaurant-table.jpg?s=612x612&w=0&k=20&c=MGamGAS_Hslqw_Wy6ZP0yHTowNsfbPYzNlVnUOOPi2A=" },
+  { id: 3, name: "Caesar Salad", price: 70, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTK2Ca-15wrgJ3nbKwlZmLiuILKDngAsCuk5A&s" },
+  { id: 4, name: "Pasta Alfredo", price: 120, image: "https://media.istockphoto.com/id/506916161/photo/homemade-fettucini-aflredo-pasta.jpg?s=612x612&w=0&k=20&c=Pa3dwlsqnPfOKgldMXuHVy5Aqmtbp8wThbj6V_4u5us=" },
+  { id: 5, name: "Grilled Sandwich", price: 60, image: "https://media.istockphoto.com/id/1600885185/photo/grilled-cheese-spinach-and-tomato-sandwich-on-concrete-background.jpg?s=612x612&w=0&k=20&c=UEPht-T83EuyLNFHfQMu43gI948zDDi1MlzDGNUSw_k=" },
+  { id: 6, name: "Masala Dosa", price: 20, image: "https://b.zmtcdn.com/data/dish_photos/cd4/2a405bb56fad956ed76daa55bd07acd4.jpg" },
+  { id: 7, name: "Muttton Briyani", price: 250, image: "https://srinivasabhavan.com/wp-content/uploads/2024/11/Mutton-Ulavacharu-Biryani.jpg" },
+  { id: 8, name: "Medu Vada", price: 10, image: "https://www.hercircle.in/hcm/Engage/D/3F79CD8A-9DA8-4216-AEA0-EDF77CC03D55.JPG" },
+  { id: 9, name: "Mandi", price: 1000, image: "https://media-assets.swiggy.com/swiggy/image/upload/f_auto,q_auto,fl_lossy/8e82f6e42f5e5bde0649f1f8f48209d8" },
+  { id: 10, name: "Full Grill", price: 300, image: "https://ahafoodcourt.com/wp-content/uploads/2024/07/Chicken-Tandoori-Full.jpg" },
 ];
 
 const Menu = () => {
